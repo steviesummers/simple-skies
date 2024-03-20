@@ -1,47 +1,43 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const profileSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+@.+\..+/, 'Must match an email address!'],
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 5,
-  },
-  skills: [
-    {
-      type: String,
-      trim: true,
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
     },
-  ],
+    password: {
+        type: String,
+        required: true
+    },
+    skyShots: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SkyShot'
+    }]
 });
 
-// set up pre-save middleware to create password
-profileSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
+const User = mongoose.model('User', userSchema);
 
-  next();
-});
+module.exports = User;
 
-// compare the incoming password with the hashed password
-profileSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
+// // set up pre-save middleware to create password
+// profileSchema.pre('save', async function (next) {
+//   if (this.isNew || this.isModified('password')) {
+//     const saltRounds = 10;
+//     this.password = await bcrypt.hash(this.password, saltRounds);
+//   }
 
-const Profile = model('Profile', profileSchema);
+//   next();
+// });
 
-module.exports = Profile;
+// // compare the incoming password with the hashed password
+// profileSchema.methods.isCorrectPassword = async function (password) {
+//   return bcrypt.compare(password, this.password);
+// };
+
+// const Profile = model('Profile', profileSchema);
+
+// module.exports = Profile;
