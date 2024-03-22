@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import the Link tag, to help with navigating to routes without page reload
 
 const ProfileList = ({ profiles, title }) => {
   if (!profiles.length) {

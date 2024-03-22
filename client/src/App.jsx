@@ -10,6 +10,7 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -31,16 +32,23 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+import styled from "styled-components"; // Imports the styled variabke from the styled-components CSS library
+import colors from "../src/components/colors"
+// styled-components
+const Wrapper = styled.section`
+  background: ${colors.background};
+`
+
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="flex-column justify-flex-start min-100-vh">
+      < Wrapper className="flex-column justify-flex-start min-100-vh">
         <Header />
         <div className="container">
           <Outlet />
         </div>
         <Footer />
-      </div>
+      </ Wrapper >
     </ApolloProvider>
   );
 }
