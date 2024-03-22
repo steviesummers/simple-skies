@@ -21,23 +21,6 @@ const Rotate = styled.div`
   padding: 2rem 1rem;
   font-size: 5rem;
 `;
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-`;
-const Pulse = styled.div`
-  animation: ${pulse} 2s infinite;
-`;
-
 const H1 = styled.h1`
   color: ${colors.textColor};
   font-size: 3rem;
