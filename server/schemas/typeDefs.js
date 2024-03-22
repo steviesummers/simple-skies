@@ -7,6 +7,14 @@ const typeDefs = `
     skills: [String]!
   }
 
+type Skyshot {
+  _id: ID
+  date: Date
+  imageUrl: String
+  title: String
+}
+
+
   type Auth {
     token: ID!
     profile: Profile
