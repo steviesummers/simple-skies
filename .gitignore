@@ -12,7 +12,7 @@
 /build
 
 # server node modules, I added because git terminal was giving error messages.
-/server/node_modules/
+/server/node_modules
 
 # misc
 .DS_Store
