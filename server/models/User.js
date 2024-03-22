@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 const mongoose = require('mongoose');
 
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     },
     skyShots: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'SkyShot'
+        ref: 'Skyshot'
     }]
 });
 

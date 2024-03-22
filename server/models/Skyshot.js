@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const skyShotSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        required: true,
+    },
     date: {
         type: Date,
         required: true
@@ -15,6 +19,6 @@ const skyShotSchema = new mongoose.Schema({
     }
 });
 
-const SkyShot = mongoose.model('SkyShot', skyShotSchema);
+const Skyshot = mongoose.model('SkyShot', skyShotSchema);
 
-module.exports = SkyShot;
+module.exports = Skyshot;
