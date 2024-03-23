@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     skyShots: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Skyshot'

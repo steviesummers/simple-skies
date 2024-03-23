@@ -35,7 +35,9 @@ function seedUsers() {
     User.insertMany(users, { ordered: false })
     .then(createdUsers => {
         console.log('Users seeded successfully:', createdUsers);
-        seedSkyShot(createdUsers);
+
+        const userIds = createdUsers.map(user => user.id);
+        seedSkyShot(userIds);
     })
     .catch(err => {
         // If any other error occurs apart from duplicate key error, log it
@@ -44,11 +46,11 @@ function seedUsers() {
         
     }});
 // Seed SkyShots function
-function seedSkyShot(users) {
+function seedSkyShot(userIds) {
     const skyShots = [
-        { date: new Date(), imageUrl: 'image1.jpg', title: 'SkyShot 1', user: users[0]._id },
-        { date: new Date(), imageUrl: 'image2.jpg', title: 'SkyShot 2', user: users[1]._id },
-        { date: new Date(), imageUrl: 'image3.jpg', title: 'SkyShot 3', user: users[2]._id }
+        { date: new Date(), imageUrl: 'image1.jpg', title: 'SkyShot 1', user: userIds[0] },
+        { date: new Date(), imageUrl: 'image2.jpg', title: 'SkyShot 2', user: userIds[1] },
+        { date: new Date(), imageUrl: 'image3.jpg', title: 'SkyShot 3', user: userIds[2] }
     ];
 
     SkyShot.create(skyShots)

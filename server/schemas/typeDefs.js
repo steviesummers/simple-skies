@@ -8,7 +8,6 @@ const typeDefs = `
   }
 
 type Skyshot {
-  _id: ID
   date: String
   imageUrl: String
   title: String
