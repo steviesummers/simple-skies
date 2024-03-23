@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const skyShotSchema = new mongoose.Schema({
-    _id: {
-        type: String,
-        required: true,
-    },
+    
     date: {
         type: Date,
         required: true
