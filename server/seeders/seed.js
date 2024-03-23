@@ -1,14 +1,14 @@
 const db = require('../config/connection');
-const { Profile } = require('../models');
+
 const cleanDB = require('./cleanDB');
 const profileSeeds = require('./profileSeeds.json');
 
 const mongoose = require('mongoose');
-const User = require('./../models/User.js');
+const Profile = require('./../models/Profile.js');
 const SkyShot = require('./../models/Skyshot.js');
 
 db.once('open', () => {
-  seedUsers();
+  seedProfiles();
   console.log('yes');
 })
 
@@ -18,39 +18,39 @@ db.once('open', () => {
 //     useUnifiedTopology: true
 // }).then(() => {
 //     console.log('Connected to MongoDB');
-//     // Seed users and SkyShots
-//     seedUsers();
+//     // Seed profiles and SkyShots
+//     seedProfiles();
 // }).catch(err => {
 //     console.error('Error connecting to MongoDB:', err);
 // });
 
-// Seed users function
-function seedUsers() {
-    const users = [
-        { username: 'user1', password: 'password1' },
-        { username: 'user2', password: 'password2' },
-        { username: 'user3', password: 'password3' }
+// Seed profiles function
+function seedProfiles() {
+    const profiles = [
+        { name: 'profile1', password: 'password1' },
+        { name: 'profile2', password: 'password2' },
+        { name: 'profile3', password: 'password3' }
     ];
 
-    User.insertMany(users, { ordered: false })
-    .then(createdUsers => {
-        console.log('Users seeded successfully:', createdUsers);
+    Profile.insertMany(profiles, { ordered: false })
+    .then(createdProfiles => {
+        console.log('Profiles seeded successfully:', createdProfiles);
 
-        const userIds = createdUsers.map(user => user.id);
-        seedSkyShot(userIds);
+        const profileIds = createdProfiles.map(profile => profile.id);
+        seedSkyShot(profileIds);
     })
     .catch(err => {
         // If any other error occurs apart from duplicate key error, log it
         if (err.code !== 11000) {
-            console.error('Error seeding users:', err);
+            console.error('Error seeding profiles:', err);
         
     }});
 // Seed SkyShots function
-function seedSkyShot(userIds) {
+function seedSkyShot(profileIds) {
     const skyShots = [
-        { date: new Date(), imageUrl: 'image1.jpg', title: 'SkyShot 1', user: userIds[0] },
-        { date: new Date(), imageUrl: 'image2.jpg', title: 'SkyShot 2', user: userIds[1] },
-        { date: new Date(), imageUrl: 'image3.jpg', title: 'SkyShot 3', user: userIds[2] }
+        { date: new Date(), imageUrl: 'image1.jpg', title: 'SkyShot 1', profile: profileIds[0] },
+        { date: new Date(), imageUrl: 'image2.jpg', title: 'SkyShot 2', profile: profileIds[1] },
+        { date: new Date(), imageUrl: 'image3.jpg', title: 'SkyShot 3', profile: profileIds[2] }
     ];
 
     SkyShot.create(skyShots)
