@@ -26,11 +26,7 @@ db.once('open', () => {
 
 // Seed profiles function
 function seedProfiles() {
-    const profiles = [
-        { name: 'profile1', password: 'password1' },
-        { name: 'profile2', password: 'password2' },
-        { name: 'profile3', password: 'password3' }
-    ];
+    const profiles = profileSeeds;
 
     Profile.insertMany(profiles, { ordered: false })
     .then(createdProfiles => {
