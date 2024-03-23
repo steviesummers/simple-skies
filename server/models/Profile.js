@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-    username: {
+const profileSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
         unique: true
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
-userSchema.pre('save', async function (next) {
+profileSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
       const saltRounds = 10;
       this.password = await bcrypt.hash(this.password, saltRounds);
@@ -35,13 +35,13 @@ userSchema.pre('save', async function (next) {
   });
   
   // compare the incoming password with the hashed password
-  userSchema.methods.isCorrectPassword = async function (password) {
+  profileSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
   };
   
-const User = mongoose.model('User', userSchema);
+const Profile = mongoose.model('Profile', profileSchema);
 
-module.exports = User;
+module.exports = Profile;
 
 // // set up pre-save middleware to create password
 // profileSchema.pre('save', async function (next) {

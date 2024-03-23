@@ -1,19 +1,19 @@
-const { User } = require('../models');
+const { Profile } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     profiles: async () => {
-      return User.find();
+      return Profile.find();
     },
 
     profile: async (parent, { profileId }) => {
-      return User.findOne({ _id: profileId });
+      return Profile.findOne({ _id: profileId });
     },
-    // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+    // By adding context to our query, we can retrieve the logged in profile without specifically searching for them
     me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id });
+      if (context.profile) {
+        return Profile.findOne({ _id: context.profile._id });
       }
       throw AuthenticationError;
     },
@@ -21,33 +21,33 @@ const resolvers = {
 
   Mutation: {
     addProfile: async (parent, { name, email, password }) => {
-      const user = await User.create({ name, email, password });
-      const token = signToken(user);
+      const profile = await Profile.create({ name, email, password });
+      const token = signToken(profile);
 
-      return { token, user };
+      return { token, profile };
     },
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      const profile = await Profile.findOne({ email });
 
-      if (!user) {
+      if (!profile) {
         throw AuthenticationError;
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await profile.isCorrectPassword(password);
 
       if (!correctPw) {
         throw AuthenticationError;
       }
 
-      const token = signToken(user);
-      return { token, user };
+      const token = signToken(profile);
+      return { token, profile };
     },
 
     // Add a third argument to the resolver to access data in our `context`
     addSkyshot: async (parent, { profileId, skyShot }, context) => {
-      // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
-      if (context.user) {
-        return User.findOneAndUpdate(
+      // If context has a `profile` property, that means the profile executing this mutation has a valid JWT and is logged in
+      if (context.profile) {
+        return Profile.findOneAndUpdate(
           { _id: profileId },
           {
             $addToSet: { skyShots: skyShot },
@@ -58,21 +58,21 @@ const resolvers = {
           }
         );
       }
-      // If user attempts to execute this mutation and isn't logged in, throw an error
+      // If profile attempts to execute this mutation and isn't logged in, throw an error
       throw AuthenticationError;
     },
-    // Set up mutation so a logged in user can only remove their profile and no one else's
+    // Set up mutation so a logged in profile can only remove their profile and no one else's
     removeProfile: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOneAndDelete({ _id: context.user._id });
+      if (context.profile) {
+        return Profile.findOneAndDelete({ _id: context.profile._id });
       }
       throw AuthenticationError;
     },
-    // Make it so a logged in user can only remove a skill from their own profile
+    // Make it so a logged in profile can only remove a skill from their own profile
     removeSkyshot: async (parent, { skyShot }, context) => {
-      if (context.user) {
+      if (context.profile) {
         return Profile.findOneAndUpdate(
-          { _id: context.user._id },
+          { _id: context.profile._id },
           { $pull: { skyShots: skyShot } },
           { new: true }
         );
