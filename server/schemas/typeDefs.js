@@ -4,7 +4,7 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    skyShots: [String]!
+    skills: [String]!
   }
 
 type Skyshot {
