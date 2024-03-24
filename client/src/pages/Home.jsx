@@ -1,13 +1,62 @@
-import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
-//require('dotenv').config();
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+// require('dotenv').config();
+import styled from "styled-components";
+import colors from "../../src/components/colors";
 
-import ProfileList from '../components/ProfileList';
+import ProfileList from "../components/ProfileList";
 
-import { QUERY_PROFILES } from '../utils/queries';
+import { QUERY_PROFILES } from "../utils/queries";
 
+// styled-components
+const Main = styled.main`
+  margin-top: 50px;
+`;
+const Wrapper = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`;
+const H2 = styled.h2`
+  color: ${colors.textColor};
+`;
+const UserInput = styled.div`
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  gap: 1rem;
+`;
+const Button = styled.button`
+  padding: 10px 25px;
+  color: ${colors.btnTextColor};
+  background: #44f49c;
+  border-radius: 5px;
+  border-color: ${colors.btnBackgroundColor};
+`;
+const Input = styled.input`
+  width: 200px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+`;
+const EarthIMG = styled.img`
+  width: 25rem;
+  height: 25rem;
+  border: 2px solid #333;
+  border-color: white;
+`;
+
+const Description = styled.p`
+  margin-top: 20px;
+  color: ${colors.textColor};
+  text-align: center;
+`;
+
+// The returned Home
 const Home = () => {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
   const [imageData, setImageData] = useState(null); // State to hold the image data
   const { loading, data } = useQuery(QUERY_PROFILES);
   const profiles = data?.profiles || [];
@@ -27,17 +76,24 @@ const Home = () => {
 
   const makeAPICall = () => {
     // Make the API call to fetch the image
-    const apiKey = 'Ue6danDpKoU3nXsZz0t5brDpTdMphdOOdD5rW1HB';
+    const apiKey = "Ue6danDpKoU3nXsZz0t5brDpTdMphdOOdD5rW1HB";
     const request = new XMLHttpRequest();
-    request.open('GET', `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${apiKey}`, true);
-    request.addEventListener('load', function () {
+    request.open(
+      "GET",
+      `https://api.nasa.gov/EPIC/api/natural/date/${date}?api_key=${apiKey}`,
+      true
+    );
+    request.addEventListener("load", function () {
       if (request.status >= 200 && request.status < 400) {
         const response = JSON.parse(request.responseText);
-        if (typeof response[0].image === 'string') {
+        if (typeof response[0].image === "string") {
           setImageData({
-            status: 'Found',
-            imageUrl: `https://epic.gsfc.nasa.gov/archive/natural/${date.replace(/-/g, '/')}/jpg/${response[0].image}.jpg`,
-            caption: response[0].caption
+            status: "Found",
+            imageUrl: `https://epic.gsfc.nasa.gov/archive/natural/${date.replace(
+              /-/g,
+              "/"
+            )}/jpg/${response[0].image}.jpg`,
+            caption: response[0].caption,
           });
         }
       } else {
@@ -48,21 +104,20 @@ const Home = () => {
   };
 
   return (
-    <main>
-      <div className="flex-row justify-center">
-        <div className="col-12 col-md-10 my-3">
-          <div className="input-group mb-3">
-            <input
+    <Main>
+      <div>
+        <Wrapper>
+          <H2>Generate your Image!</H2>
+          <UserInput>
+            <Input
               type="date"
               className="form-control"
               placeholder="Select a date"
               value={date}
               onChange={handleDateChange}
             />
-            <button className="btn btn-primary" onClick={handleSubmit}>
-              Submit
-            </button>
-          </div>
+            <Button onClick={handleSubmit}>Submit</Button>
+          </UserInput>
           {loading ? (
             <div>Loading...</div>
           ) : (
@@ -71,6 +126,7 @@ const Home = () => {
               title="Here's the current roster of friends..."
             />
           )}
+
           {imageData && imageData.status === 'Found' && ( // Display the image if imageData is available
             <div>
               <img src={imageData.imageUrl} alt="Earth" />
@@ -81,8 +137,9 @@ const Home = () => {
             </div>
           )}
         </div>
+
       </div>
-    </main>
+    </Main>
   );
 };
 
