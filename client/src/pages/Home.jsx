@@ -30,6 +30,7 @@ const Home = () => {
               className="form-control"
               placeholder="Select a date"
               value={date}
+              id='dateInput'
               onChange={handleDateChange}
             />
             <button className="btn btn-primary" onClick={handleSubmit}>
