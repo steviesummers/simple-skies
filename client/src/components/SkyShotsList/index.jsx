@@ -1,44 +1,45 @@
 import { useMutation } from '@apollo/client';
 
-import { REMOVE_SKILL } from '../../utils/mutations';
+import { REMOVE_SKYSHOT } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
+// import SkyShotsList from '../../pages/Home';
 
-const SkillsList = ({ skills, isLoggedInUser = false }) => {
-  const [removeSkill, { error }] = useMutation
-  (REMOVE_SKILL, {
+const SkyShotsList = ({ SkyShots, isLoggedInUser = false }) => {
+  const [removeSkyShot, { error }] = useMutation
+  (REMOVE_SKYSHOT, {
     refetchQueries: [
       QUERY_ME,
       'me'
     ]
   });
 
-  const handleRemoveSkill = async (skill) => {
+  const handleRemoveSkyShot = async (SkyShot) => {
     try {
-      const { data } = await removeSkill({
-        variables: { skill },
+      const { data } = await removeSkyShot({
+        variables: { SkyShot },
       });
     } catch (err) {
       console.error(err);
     }
   };
 
-  if (!skills.length) {
-    return <h3>No Skills Yet</h3>;
+  if (!SkyShotsList.length) {
+    return <h3>No SkyShots Yet</h3>;
   }
 
   return (
     <div>
       <div className="flex-row justify-space-between my-4">
-        {skills &&
-          skills.map((skill) => (
-            <div key={skill} className="col-12 col-xl-6">
+        {SkyShots &&
+          SkyShots.map((SkyShot) => (
+            <div key={SkyShot} className="col-12 col-xl-6">
               <div className="card mb-3">
                 <h4 className="card-header bg-dark text-light p-2 m-0 display-flex align-center">
-                  <span>{skill}</span>
+                  <span>{SkyShot}</span>
                   {isLoggedInUser && (
                     <button
                       className="btn btn-sm btn-danger ml-auto"
-                      onClick={() => handleRemoveSkill(skill)}
+                      onClick={() => handleRemoveSkyShot(SkyShotsList)}
                     >
                       X
                     </button>
@@ -55,4 +56,4 @@ const SkillsList = ({ skills, isLoggedInUser = false }) => {
   );
 };
 
-export default SkillsList;
+export default SkyShotsList;
