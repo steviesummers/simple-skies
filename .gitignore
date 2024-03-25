@@ -28,4 +28,5 @@ yarn-error.log*
 
 server/package-lock.json
 client/package-lock.json
+server/node_modules/.package-lock.json
 package-lock.json

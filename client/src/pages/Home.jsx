@@ -140,32 +140,30 @@ const Home = () => {
 
       </div>
     </Main>
-  );
-};
+  
+export default Home;
 
-const SkyShotsList = ({ SkyShots }) => {
-  if (!SkyShots.length) {
-    return <h3>No SkyShots Yet</h3>;
-  }
-
-  return (
-    <div>
-      <div className="flex-row justify-space-between my-4">
-        {SkyShots &&
-          SkyShots.map((Skyshot) => (
-            <div key={Skyshot} className="col-12 col-xl-6">
-              <div className="card mb-3">
-                <h4 className="card-header bg-dark text-light p-2 m-0">
-                  {Skyshot} <br />
-                </h4>
-              </div>
-            </div>
-          ))}
-      </div>
-    </div>
-  );
-};
-
-export default SkyShotsList;
-
-
+//const SkyShotsList = ({ SkyShots }) => {
+//  if (!SkyShots.length) {
+//    return <h3>No SkyShots Yet</h3>;
+//  }
+//
+//  return (
+//    <div>
+//      <div className="flex-row justify-space-between my-4">
+//        {SkyShots &&
+//          SkyShots.map((Skyshot) => (
+//            <div key={Skyshot} className="col-12 col-xl-6">
+//              <div className="card mb-3">
+//                <h4 className="card-header bg-dark text-light p-2 m-0">
+//                  {Skyshot} <br />
+//                </h4>
+//              </div>
+//            </div>
+//          ))}
+//     </div>
+//    </div>
+//  );
+//};
+//
+//export default SkyShotsList;
