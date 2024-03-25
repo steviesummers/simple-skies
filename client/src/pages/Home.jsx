@@ -69,6 +69,10 @@ const Home = () => {
     // Perform API call here
     makeAPICall();
   };
+  const handleSaveImage = () => {
+    // makeAPICall();
+    console.log('trying to save image')
+  };
 
   const makeAPICall = () => {
     // Make the API call to fetch the image
@@ -122,17 +126,44 @@ const Home = () => {
               title="Here's the current roster of friends..."
             />
           )}
-          {imageData &&
-            imageData.status === "Found" && ( // Display the image if imageData is available
-              <>
-                <EarthIMG src={imageData.imageUrl} alt="Earth" />
-                <Description>{imageData.caption}</Description>
-              </>
-            )}
-        </Wrapper>
+
+          {imageData && imageData.status === 'Found' && ( // Display the image if imageData is available
+            <div>
+              <img src={imageData.imageUrl} alt="Earth" />
+              <p>{imageData.caption}</p>
+              <button className="btn btn-primary" onClick={handleSaveImage}>
+                Save Image
+              </button>
+            </div>
+          )}
+        </div>
+
       </div>
     </Main>
-  );
-};
-
+  
 export default Home;
+
+//const SkyShotsList = ({ SkyShots }) => {
+//  if (!SkyShots.length) {
+//    return <h3>No SkyShots Yet</h3>;
+//  }
+//
+//  return (
+//    <div>
+//      <div className="flex-row justify-space-between my-4">
+//        {SkyShots &&
+//          SkyShots.map((Skyshot) => (
+//            <div key={Skyshot} className="col-12 col-xl-6">
+//              <div className="card mb-3">
+//                <h4 className="card-header bg-dark text-light p-2 m-0">
+//                  {Skyshot} <br />
+//                </h4>
+//              </div>
+//            </div>
+//          ))}
+//     </div>
+//    </div>
+//  );
+//};
+//
+//export default SkyShotsList;
