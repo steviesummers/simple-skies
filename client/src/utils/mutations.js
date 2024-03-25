@@ -12,12 +12,12 @@ export const ADD_PROFILE = gql`
   }
 `;
 
-export const ADD_SKILL = gql`
-  mutation addSkill($profileId: ID!, $skill: String!) {
-    addSkill(profileId: $profileId, skill: $skill) {
+export const ADD_SKYSHOT = gql`
+  mutation addSkyshot($profileId: ID!, $skyshot: String!) {
+    addSkyshot(profileId: $profileId, skyshot: $skyshot) {
       _id
       name
-      skills
+      skyshots
     }
   }
 `;
@@ -34,12 +34,12 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const REMOVE_SKILL = gql`
-  mutation removeSkill($skill: String!) {
-    removeSkill(skill: $skill) {
+export const REMOVE_SKYSHOT = gql`
+  mutation removeSkyshot($skyshot: String!) {
+    removeSkyshot(skyshot: $skyshot) {
       _id
       name
-      skills
+      skyshots
     }
   }
 `;

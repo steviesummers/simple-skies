@@ -68,7 +68,7 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    // Make it so a logged in profile can only remove a skill from their own profile
+    // Make it so a logged in profile can only remove a skyshot from their own profile
     removeSkyshot: async (parent, { skyShot }, context) => {
       if (context.profile) {
         return Profile.findOneAndUpdate(
