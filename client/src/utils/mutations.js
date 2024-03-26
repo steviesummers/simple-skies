@@ -43,3 +43,15 @@ export const REMOVE_SKYSHOT = gql`
     }
   }
 `;
+
+export const SAVE_IMAGE = gql`
+mutation AddSkyshot($profileId: ID!, $skyshot: String!) {
+  addSkyshot(profileId: $profileId, skyshot: $skyshot) {
+    _id
+    name
+    email
+    password
+    skyshots
+  }
+}
+`;

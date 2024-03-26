@@ -1,5 +1,5 @@
-const { Profile } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { Profile } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -44,13 +44,13 @@ const resolvers = {
     },
 
     // Add a third argument to the resolver to access data in our `context`
-    addSkyshot: async (parent, { profileId, skyShot }, context) => {
+    addSkyshot: async (parent, { profileId, skyshot }, context) => {
       // If context has a `profile` property, that means the profile executing this mutation has a valid JWT and is logged in
       if (context.profile) {
         return Profile.findOneAndUpdate(
           { _id: profileId },
           {
-            $addToSet: { skyShots: skyShot },
+            $addToSet: { skyshots: skyshot },
           },
           {
             new: true,
@@ -69,15 +69,25 @@ const resolvers = {
       throw AuthenticationError;
     },
     // Make it so a logged in profile can only remove a skyshot from their own profile
-    removeSkyshot: async (parent, { skyShot }, context) => {
+    removeSkyshot: async (parent, { skyshot }, context) => {
       if (context.profile) {
         return Profile.findOneAndUpdate(
           { _id: context.profile._id },
-          { $pull: { skyShots: skyShot } },
+          { $pull: { skyshots: skyshot } },
           { new: true }
         );
       }
       throw AuthenticationError;
+    },
+    saveImage: async (parent, { profileId, imageUrl }, context) => {
+      if (context.profile) {
+        return Profile.findOneAndUpdate(
+          { _id: profileId },
+          { $addToSet: { skyshots: imageUrl } },
+          { new: true, runValidators: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in to save images.");
     },
   },
 };

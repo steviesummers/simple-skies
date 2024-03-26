@@ -4,7 +4,7 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    skyShots: [String]!
+    skyshots: [String]
   }
 
 type Skyshot {
@@ -30,9 +30,10 @@ type Skyshot {
     addProfile(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
 
-    addSkyshot(profileId: ID!, skyShot: String!): Profile
+    addSkyshot(profileId: ID!, skyshot: String!): Profile
     removeProfile: Profile
-    removeSkyshot(skyShot: String!): Profile
+    removeSkyshot(skyshot: String!): Profile
+    saveImage(profileId: ID!, imageUrl: String!): Profile
   }
 `;
 

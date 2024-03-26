@@ -3,18 +3,18 @@
     "name": "Brian Kernighan",
     "email": "bkernighan@techfriends.dev",
     "password": "password01",
-    "skyShots": []
+    "skyshots": []
   },
   {
     "name": "Max Kanat-Alexander",
     "email": "mkanatalexander@techfriends.dev",
     "password": "password02",
-    "skyShots": []
+    "skyshots": []
   },
   {
     "name": "Amiko",
     "email": "amiko@techfriends.dev",
     "password": "password03",
-    "skyShots": []
+    "skyshots": []
   }
 ]

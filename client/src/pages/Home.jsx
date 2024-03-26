@@ -1,35 +1,39 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
-// require('dotenv').config();
+import { useQuery, useMutation } from "@apollo/client";
+import { SAVE_IMAGE } from "../utils/mutations";
+import { Navigate } from 'react-router-dom';
 import styled from "styled-components";
 import colors from "../../src/components/colors";
-
 import ProfileList from "../components/ProfileList";
-
 import { QUERY_PROFILES } from "../utils/queries";
+import Auth from '../utils/auth';
 
-// styled-components
 const Main = styled.main`
   margin-top: 50px;
 `;
+
 const Wrapper = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
+
 const H2 = styled.h2`
   color: ${colors.textColor};
 `;
+
 const H3 = styled.h3`
   color: ${colors.textColor};
 `;
+
 const UserInput = styled.div`
   display: flex;
   align-self: center;
   justify-content: center;
   gap: 1rem;
 `;
+
 const Button = styled.button`
   padding: 10px 25px;
   color: ${colors.btnTextColor};
@@ -37,6 +41,7 @@ const Button = styled.button`
   border-radius: 5px;
   border-color: ${colors.btnBackgroundColor};
 `;
+
 const Input = styled.input`
   width: 200px;
   height: 40px;
@@ -44,6 +49,7 @@ const Input = styled.input`
   border-radius: 5px;
   border: 1px solid #ccc;
 `;
+
 const EarthIMG = styled.img`
   width: 25rem;
   height: 25rem;
@@ -57,24 +63,36 @@ const Description = styled.p`
   text-align: center;
 `;
 
-// The returned Home
 const Home = () => {
   const [date, setDate] = useState("");
-  const [imageData, setImageData] = useState(null); // State to hold the image data
+  const [imageData, setImageData] = useState(null);
   const { loading, data } = useQuery(QUERY_PROFILES);
   const profiles = data?.profiles || [];
+  const [saveImage] = useMutation(SAVE_IMAGE);
+
+  const loggedInProfile = Auth.getProfile().data; // Retrieve logged-in user's data
+  const profileId = loggedInProfile?._id; // Get profileId if user is logged in
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
   };
 
   const handleSubmit = () => {
-    // Perform API call here
     makeAPICall();
   };
+
   const handleSaveImage = () => {
-    // makeAPICall();
-    console.log('trying to save image')
+    if (imageData && profileId) {
+      saveImage({
+        variables: { profileId: profileId, skyshot: imageData.imageUrl },
+      })
+        .then((response) => {
+          console.log("Image saved successfully.");
+        })
+        .catch((error) => {
+          console.error("Error saving image:", error);
+        });
+    }
   };
 
   const makeAPICall = () => {
@@ -131,45 +149,17 @@ const Home = () => {
             />
           )}
 
-          {imageData && imageData.status === 'Found' && ( // Display the image if imageData is available
+          {imageData && imageData.status === 'Found' && (
             <>
               <EarthIMG src={imageData.imageUrl} alt="Earth" />
               <Description>{imageData.caption}</Description>
-              <Button onClick={handleSaveImage}>
-                Save Image
-              </Button>
+              <Button onClick={handleSaveImage}>Save Image</Button>
             </>
           )}
         </Wrapper>
       </div>
-      
     </Main>
   );
 };
-  
-export default Home;
 
-//const SkyShotsList = ({ SkyShots }) => {
-//  if (!SkyShots.length) {
-//    return <h3>No SkyShots Yet</h3>;
-//  }
-//
-//  return (
-//    <div>
-//      <div className="flex-row justify-space-between my-4">
-//        {SkyShots &&
-//          SkyShots.map((Skyshot) => (
-//            <div key={Skyshot} className="col-12 col-xl-6">
-//              <div className="card mb-3">
-//                <h4 className="card-header bg-dark text-light p-2 m-0">
-//                  {Skyshot} <br />
-//                </h4>
-//              </div>
-//            </div>
-//          ))}
-//     </div>
-//    </div>
-//  );
-//};
-//
-//export default SkyShotsList;
+export default Home;
