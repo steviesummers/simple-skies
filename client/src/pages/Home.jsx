@@ -128,16 +128,15 @@ const Home = () => {
           )}
 
           {imageData && imageData.status === 'Found' && ( // Display the image if imageData is available
-            <div>
-              <img src={imageData.imageUrl} alt="Earth" />
-              <p>{imageData.caption}</p>
-              <button className="btn btn-primary" onClick={handleSaveImage}>
+            <>
+              <EarthIMG src={imageData.imageUrl} alt="Earth" />
+              <Description>{imageData.caption}</Description>
+              <Button onClick={handleSaveImage}>
                 Save Image
-              </button>
-            </div>
+              </Button>
+            </>
           )}
         </Wrapper>
-
       </div>
     </Main>
   );
