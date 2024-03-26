@@ -136,10 +136,12 @@ const Home = () => {
               </button>
             </div>
           )}
-        </div>
+        </Wrapper>
 
       </div>
     </Main>
+  );
+};
   
 export default Home;
 
