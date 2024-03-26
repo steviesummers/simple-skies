@@ -69,8 +69,10 @@ const Home = () => {
   const { loading, data } = useQuery(QUERY_PROFILES);
   const profiles = data?.profiles || [];
   const [saveImage] = useMutation(SAVE_IMAGE);
-
-  const loggedInProfile = Auth.getProfile().data; // Retrieve logged-in user's data
+console.log('peep');
+console.log('isLoggedIn');
+  const loggedInProfile = Auth.loggedIn(); // Retrieve logged-in user's data
+  
   const profileId = loggedInProfile?._id; // Get profileId if user is logged in
 
   const handleDateChange = (e) => {

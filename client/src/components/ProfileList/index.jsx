@@ -17,7 +17,7 @@ const ProfileList = ({ profiles, title }) => {
                   {profile.name} <br />
                   <span className="text-white" style={{ fontSize: '1rem' }}>
                     currently has {profile.skyshots ? profile.skyshots.length : 0}{' '}
-                    endorsed skyshot
+                    saved skyshot
                     {profile.skyshots && profile.skyshots.length === 1 ? '' : 's'}
                   </span>
                 </h4>
@@ -26,7 +26,7 @@ const ProfileList = ({ profiles, title }) => {
                   className="btn btn-block btn-squared btn-light text-dark"
                   to={`/profiles/${profile._id}`}
                 >
-                  View and endorse their skyshots.
+                  View and save their skyshots.
                 </Link>
               </div>
             </div>
