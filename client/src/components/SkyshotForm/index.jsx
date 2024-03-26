@@ -27,7 +27,7 @@ const SkyshotForm = ({ profileId }) => {
 
   return (
     <div>
-      <h4>Endorse some more skyshots below.</h4>
+      <h4>Save some more skyshots below.</h4>
 
       {Auth.loggedIn() ? (
         <form
@@ -36,7 +36,7 @@ const SkyshotForm = ({ profileId }) => {
         >
           <div className="col-12 col-lg-9">
             <input
-              placeholder="Endorse some skyshots..."
+              placeholder="Save some skyshots..."
               value={skyshot}
               className="form-input w-100"
               onChange={(event) => setSkyshot(event.target.value)}
@@ -45,7 +45,7 @@ const SkyshotForm = ({ profileId }) => {
 
           <div className="col-12 col-lg-3">
             <button className="btn btn-info btn-block py-3" type="submit">
-              Endorse Skyshot
+              Save Skyshot
             </button>
           </div>
           {error && (
@@ -56,7 +56,7 @@ const SkyshotForm = ({ profileId }) => {
         </form>
       ) : (
         <p>
-          You need to be logged in to endorse skyshots. Please{' '}
+          You need to be logged in to save skyshots. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
