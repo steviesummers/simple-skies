@@ -111,7 +111,7 @@ const Home = () => {
       <div>
         <Wrapper>
           <H2>Generate your Image from 2016 Onwards!</H2>
-          <H3>(NASA didn't have cameras until then)</H3>
+          <H3>(NASA did not have cameras until then)</H3>
           <UserInput>
             <Input
               type="date"
@@ -145,8 +145,8 @@ const Home = () => {
       </div>
       
     </Main>
-    )
-    }
+  );
+};
   
 export default Home;
 

@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import SkyshotsList from '../components/SkyshotsList';
+import SkyshotsList from '../components/SkyShotsList';
 import SkyshotForm from '../components/SkyshotForm';
 
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
