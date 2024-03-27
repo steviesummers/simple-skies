@@ -4,7 +4,7 @@ import { SAVE_IMAGE } from "../utils/mutations";
 import { Navigate } from 'react-router-dom';
 import styled from "styled-components";
 import colors from "../../src/components/colors";
-import ProfileList from "../components/ProfileList";
+//import ProfileList from "../components/ProfileList";
 import { QUERY_PROFILES } from "../utils/queries";
 import Auth from '../utils/auth';
 
@@ -107,7 +107,8 @@ const Home = () => {
     request.addEventListener("load", function () {
       if (request.status >= 200 && request.status < 400) {
         const response = JSON.parse(request.responseText);
-        if (typeof response[0].image === "string") {
+        console.log("API response:", response); // Log the response
+        if (response && response.length > 0 && typeof response[0].image === "string") {
           setImageData({
             status: "Found",
             imageUrl: `https://epic.gsfc.nasa.gov/archive/natural/${date.replace(
@@ -116,9 +117,11 @@ const Home = () => {
             )}/jpg/${response[0].image}.jpg`,
             caption: response[0].caption,
           });
+        } else {
+          console.error("Unexpected response format:", response);
         }
       } else {
-        console.log("Error in network request: " + request.statusText);
+        console.error("Error in network request: " + request.statusText);
       }
     });
     request.send();
@@ -143,10 +146,7 @@ const Home = () => {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <ProfileList
-              profiles={profiles}
-              title="Here's the current roster of friends..."
-            />
+            <p></p>
           )}
 
           {imageData && imageData.status === 'Found' && (
