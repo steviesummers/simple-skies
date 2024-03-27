@@ -70,7 +70,7 @@ const Home = () => {
   const profiles = data?.profiles || [];
   const [saveImage] = useMutation(SAVE_IMAGE);
 
-  const loggedInProfile = Auth.getProfile().data; // Retrieve logged-in user's data
+  const loggedInProfile = Auth.loggedIn(); // Retrieve logged-in user's data
   const profileId = loggedInProfile?._id; // Get profileId if user is logged in
 
   const handleDateChange = (e) => {
@@ -82,9 +82,10 @@ const Home = () => {
   };
 
   const handleSaveImage = () => {
-    if (imageData && profileId) {
+    if (imageData && Auth.loggedIn()) {
+      console.log(Auth.getProfile().data._id);
       saveImage({
-        variables: { profileId: profileId, skyshot: imageData.imageUrl },
+        variables: { profileId: Auth.getProfile().data._id, skyshot: imageData.imageUrl },
       })
         .then((response) => {
           console.log("Image saved successfully.");
@@ -92,6 +93,9 @@ const Home = () => {
         .catch((error) => {
           console.error("Error saving image:", error);
         });
+        
+    } else {
+      console.log("This is not going through");
     }
   };
 
