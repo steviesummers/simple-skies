@@ -18,7 +18,7 @@ User story: As an individual who contemplates my place in the universe, I want t
 ## Description
 Our application is a single page React App implimenting NASA's EPIC API for user
 to view a picture of the Earth on any given day (after 2015). The user is then able to save this photo to their personal
-collection, as well as change the name of the image to suite their personal needs.
+collection, as well as change the name of the image to suit their personal needs.
 
 
 
@@ -45,20 +45,19 @@ Enter a date in the provided input field.
 Click the "Submit" button to fetch images captured on that date.
 View the retrieved images and captions displayed on the screen.
 Optionally, click the "Save Image" button to save an image to your personal collection.
-### Prerequisites
+
+## Prerequisites
  
- ### Installation
+### Installation
 Follow these steps to install and run the application locally:
 
 Clone the Repository
 Navigate to the Project Directory
 Install Dependencies
-Set Up Environment Variables (if applicable)
+Set Up Environment Variables (if applicable) after you have gotten an API key from NASA API
 
 If your application requires environment variables, create a .env file in the root directory and add your environment variables there.
 Start the Development Server
-
-
 
 
 
@@ -70,22 +69,26 @@ Start the Development Server
  *configuration may vary if opting to use other languages*
 
 ## Credits
-[https://proulxp.github.io/CS290-How-To-Guide/epic.html](https://proulxp.github.io/CS290-How-To-Guide/epic.html) for NASA EPIC: DSCOVR API help.
+Per Nirav's suggestion we used starter code from Activity 17-Ins_JWT-Review of the 22-State folder of the [UCSD-VIRT-FSF-PT-09-2023-U-LOLC GitLab repository](https://git.bootcampcontent.com/University-of-California---San-Diego/UCSD-VIRT-FSF-PT-09-2023-U-LOLC).
+
+We referenced [https://proulxp.github.io/CS290-How-To-Guide/epic.html](https://proulxp.github.io/CS290-How-To-Guide/epic.html) for help with the  [NASA EPIC: DSCOVR API](https://epic.gsfc.nasa.gov/).
+
+Michael Pacheco, Nirav Venkatesan, and ChatGPT proved invaluable in help with debugging and error identification. Thank you both!
 
 ## Configuration
 Before running the application, ensure that you have completed the following configuration steps:
 
-Environment Variables:
+### Environment Variables:
 
 If your application relies on environment variables, create a .env file in the root directory of your project.
 Define the required environment variables in the .env file. 
 
-Database Configuration:
+### Database Configuration:
 
 If your application uses a database, ensure that you have configured the database connection properly.
 Update the database connection string in your application code to match your database configuration.
 
-API Keys and Credentials:
+### API Keys and Credentials:
 
 If your application interacts with third-party APIs or services, make sure to provide the necessary API keys or credentials.
 Update the API keys or credentials in your application code or environment variables.

@@ -6,7 +6,7 @@ class AuthService {
   }
 
   loggedIn() 
-  {console.log("hi there")
+  {
   
     const token = this.getToken();
     if (!token) return false
@@ -21,7 +21,7 @@ class AuthService {
     //   return true;
     // }
     // return false;
-    try { console.log('token expired');
+    try { 
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
         return true;
