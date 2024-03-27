@@ -23,8 +23,8 @@ collection, as well as change the name of the image to suite their personal need
 
 
 ## Screenshots
+![alt text](<Screenshot 2024-03-26 at 4.30.14 PM.png>)
 
-![alt text](<Screenshot 2024-03-26 at 4.30.14 PM (2).png>)
 
 ## Features
 Image Retrieval: Fetch images from the NASA EPIC API based on the selected date.
