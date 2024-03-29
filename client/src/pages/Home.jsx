@@ -4,7 +4,7 @@ import { SAVE_IMAGE } from "../utils/mutations";
 import { Navigate } from 'react-router-dom';
 import styled from "styled-components";
 import colors from "../../src/components/colors";
-import ProfileList from "../components/ProfileList";
+//import ProfileList from "../components/ProfileList";
 import { QUERY_PROFILES } from "../utils/queries";
 import Auth from '../utils/auth';
 
@@ -69,10 +69,8 @@ const Home = () => {
   const { loading, data } = useQuery(QUERY_PROFILES);
   const profiles = data?.profiles || [];
   const [saveImage] = useMutation(SAVE_IMAGE);
-console.log('peep');
-console.log('isLoggedIn');
+
   const loggedInProfile = Auth.loggedIn(); // Retrieve logged-in user's data
-  
   const profileId = loggedInProfile?._id; // Get profileId if user is logged in
 
   const handleDateChange = (e) => {
@@ -84,9 +82,10 @@ console.log('isLoggedIn');
   };
 
   const handleSaveImage = () => {
-    if (imageData && profileId) {
+    if (imageData && Auth.loggedIn()) {
+      console.log(Auth.getProfile().data._id);
       saveImage({
-        variables: { profileId: profileId, skyshot: imageData.imageUrl },
+        variables: { profileId: Auth.getProfile().data._id, skyshot: imageData.imageUrl },
       })
         .then((response) => {
           console.log("Image saved successfully.");
@@ -94,6 +93,9 @@ console.log('isLoggedIn');
         .catch((error) => {
           console.error("Error saving image:", error);
         });
+        
+    } else {
+      console.log("This is not going through");
     }
   };
 
@@ -109,7 +111,8 @@ console.log('isLoggedIn');
     request.addEventListener("load", function () {
       if (request.status >= 200 && request.status < 400) {
         const response = JSON.parse(request.responseText);
-        if (typeof response[0].image === "string") {
+        console.log("API response:", response); // Log the response
+        if (response && response.length > 0 && typeof response[0].image === "string") {
           setImageData({
             status: "Found",
             imageUrl: `https://epic.gsfc.nasa.gov/archive/natural/${date.replace(
@@ -118,9 +121,11 @@ console.log('isLoggedIn');
             )}/jpg/${response[0].image}.jpg`,
             caption: response[0].caption,
           });
+        } else {
+          console.error("Unexpected response format:", response);
         }
       } else {
-        console.log("Error in network request: " + request.statusText);
+        console.error("Error in network request: " + request.statusText);
       }
     });
     request.send();
@@ -145,10 +150,7 @@ console.log('isLoggedIn');
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <ProfileList
-              profiles={profiles}
-              title="Here's the current roster of friends..."
-            />
+            <p></p>
           )}
 
           {imageData && imageData.status === 'Found' && (
